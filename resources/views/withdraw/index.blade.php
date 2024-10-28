@@ -5,8 +5,7 @@
 @extends('../withdraw')
 
 @section('content')
-<div class="container">
-    <table class="table">
+    <table class="table table-bordered mt-2">
         <tr>
             <td>Full Name</td>
             <td>{{ $withdrawls->first()->user->name }}</td>
@@ -33,9 +32,10 @@
             <td>{{ $additionalData[0]['business_days'] }} days</td>
         </tr>
     </table>
+
     <p class="m-0 pt-4 fw-bold h5 text-primary">History Withdraw Transaction</p>
     @foreach ($withdrawls as $index => $withdraw)
-        <div class="card shadow mt-3">
+        <div class="card shadow mt-2">
             <div class="card-body d-flex flex-column">
                 <span class="form-text">{{ Carbon::parse($withdraw->date)->translatedFormat('d F Y H:i') }}</span>
                 <span class="fw-bold text-success">Rp {{ number_format($withdraw->nominal, 0, ',', '.') }}</span>

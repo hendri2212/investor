@@ -1,7 +1,6 @@
 <?php
+    use Illuminate\Support\Facades\Route;
+    use App\Http\Controllers\WithdrawController;
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\WithdrawController;
-
-Route::get('/', [WithdrawController::class, 'index']);
-Route::resource('withdraw', WithdrawController::class);
+    Route::get('/', [WithdrawController::class, 'index']);
+    Route::resource('withdraw', WithdrawController::class);
