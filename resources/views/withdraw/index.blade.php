@@ -33,24 +33,26 @@
             <td>{{ $additionalData[0]['business_days'] }} days</td>
         </tr>
     </table>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>No</th>
-                <th>Date</th>
-                <th>Nominal</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($withdrawls as $index => $withdraw)
-            <tr>
-                <td>{{ $loop->iteration }}</td>
-                <td>{{ Carbon::parse($withdraw->date)->translatedFormat('d F Y H:i') }}</td>
-                <td>Rp {{ number_format($withdraw->nominal, 0, ',', '.') }}</td>
-                <td>{{ $withdraw->status }}</td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th class="text-nowrap">Date</th>
+                    <th class="text-nowrap">Nominal</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($withdrawls as $index => $withdraw)
+                <tr>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ Carbon::parse($withdraw->date)->translatedFormat('d F Y H:i') }}</td>
+                    <td>Rp {{ number_format($withdraw->nominal, 0, ',', '.') }}</td>
+                    <td>{{ $withdraw->status }}</td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
 @endsection
