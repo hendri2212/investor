@@ -38,8 +38,8 @@
             <thead>
                 <tr>
                     <th>No</th>
-                    <th class="text-nowrap">Date</th>
-                    <th class="text-nowrap">Nominal</th>
+                    <th>Date</th>
+                    <th>Nominal</th>
                     <th>Status</th>
                 </tr>
             </thead>
@@ -47,8 +47,8 @@
                 @foreach ($withdrawls as $index => $withdraw)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ Carbon::parse($withdraw->date)->translatedFormat('d F Y H:i') }}</td>
-                    <td>Rp {{ number_format($withdraw->nominal, 0, ',', '.') }}</td>
+                    <td class="text-nowrap">{{ Carbon::parse($withdraw->date)->translatedFormat('d F Y H:i') }}</td>
+                    <td class="text-nowrap">Rp {{ number_format($withdraw->nominal, 0, ',', '.') }}</td>
                     <td>{{ $withdraw->status }}</td>
                 </tr>
                 @endforeach
