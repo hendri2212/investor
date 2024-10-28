@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateWithdrawTable extends Migration
+class CreateWithdrawsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,14 @@ class CreateWithdrawTable extends Migration
      */
     public function up()
     {
-        Schema::create('withdraw', function (Blueprint $table) {
+        Schema::create('withdraws', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id'); // Kolom relasi ke tabel users
-            $table->date('date');
-            $table->decimal('nominal', 15, 2);
+            $table->unsignedBigInteger('user_id');
+            $table->dateTime('date');
+            $table->integer('nominal');
             $table->string('status');
             $table->timestamps();
 
-            // Mendefinisikan foreign key ke tabel users
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
