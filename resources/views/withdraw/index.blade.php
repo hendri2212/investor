@@ -5,7 +5,7 @@
 @extends('../withdraw')
 
 @section('content')
-    <table class="table table-bordered mt-2">
+    <table class="table table-sm table-bordered mt-2">
         <tr>
             <td>Full Name</td>
             <td>{{ $withdrawls->first()->user->name }}</td>
@@ -33,7 +33,7 @@
         </tr>
     </table>
 
-    <p class="m-0 pt-4 fw-bold h5 text-primary">History Withdraw Transaction</p>
+    <p class="m-0 pt-3 fw-bold h5 text-primary">History Withdraw Transaction</p>
     @foreach ($withdrawls as $index => $withdraw)
         <div class="card shadow mt-2">
             <div class="card-body d-flex flex-column">
