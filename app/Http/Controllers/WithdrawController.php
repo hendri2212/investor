@@ -4,12 +4,41 @@ namespace App\Http\Controllers;
 
 use App\Models\Withdraw;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 
 class WithdrawController extends Controller
 {
     public function index(){
         $withdrawls = Withdraw::with('user')->get();
-        return view('withdraw.index', compact('withdrawls'));
+
+        $totalNominal = $withdrawls->sum('nominal');
+
+        $additionalData = [
+            [
+                'start_date' => '2024-10-24', 
+                'capital' => 500000, 
+                'yield' => $totalNominal,
+                'persentase' => 10
+            ]
+        ];
+
+        foreach ($additionalData as &$data) {
+            $data['persentase'] = ($data['yield'] / $data['capital']) * 100;
+            
+            $today = Carbon::now();
+            $startDate = Carbon::parse($data['start_date']);
+            $period = CarbonPeriod::create($startDate, $today);
+            
+            // Filter only business days
+            $businessDays = iterator_count($period->filter('isWeekday'));
+
+            $data['business_days'] = $businessDays;
+            
+            $data['formatted_start_date'] = $startDate->translatedFormat('d F Y');
+        }
+
+        return view('withdraw.index', compact('withdrawls', 'additionalData'));
     }
     
     public function create()
