@@ -21,7 +21,7 @@
         </tr>
         <tr>
             <td>Yield</td>
-            <td>Rp {{ number_format($additionalData[0]['yield'], 0, ',', '.') }}</td>
+            <td class="text-success fw-bold">Rp {{ number_format($additionalData[0]['yield'], 0, ',', '.') }}</td>
 
         </tr>
         <tr>
@@ -33,11 +33,12 @@
             <td>{{ $additionalData[0]['business_days'] }} days</td>
         </tr>
     </table>
+    <p class="m-0 pt-4 fw-bold text-center text-uppercase text-primary">History Withdraw Transaction</p>
     <div class="table-responsive">
         <table class="table">
             <thead>
                 <tr>
-                    <th>No</th>
+                    <th class="text-center">No</th>
                     <th>Date</th>
                     <th>Nominal</th>
                     <th>Status</th>
@@ -46,7 +47,7 @@
             <tbody>
                 @foreach ($withdrawls as $index => $withdraw)
                 <tr>
-                    <td>{{ $loop->iteration }}</td>
+                    <td class="text-center">{{ $loop->iteration }}</td>
                     <td class="text-nowrap">{{ Carbon::parse($withdraw->date)->translatedFormat('d F Y H:i') }}</td>
                     <td class="text-nowrap">Rp {{ number_format($withdraw->nominal, 0, ',', '.') }}</td>
                     <td>{{ $withdraw->status }}</td>
