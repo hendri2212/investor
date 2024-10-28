@@ -5,7 +5,7 @@
 @extends('../withdraw')
 
 @section('content')
-    <table class="table table-sm table-bordered mt-2 mb-0">
+    <table class="table table-sm table-bordered mb-0">
         <tr>
             <td>Full Name</td>
             <td>{{ $withdrawls->first()->user->name }}</td>

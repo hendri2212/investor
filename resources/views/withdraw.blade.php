@@ -10,7 +10,7 @@
     </head>
     <body>
         <div class="container mx-auto" style="max-width: 460px">
-            <nav class="navbar bg-primary" data-bs-theme="dark">
+            <nav class="navbar bg-primary mb-2" data-bs-theme="dark">
                 <div class="container-fluid">
                     <span class="navbar-brand mb-0 h1">Investor Saijaan</span>
                 </div>
