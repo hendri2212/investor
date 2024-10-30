@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Withdraw;
 use App\Models\Wallet;
+use App\Models\User;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 
@@ -49,16 +50,17 @@ class WithdrawController extends Controller
         return view('withdraw.index', compact('withdrawls', 'additionalData'));
     }
     
-    public function create()
-    {
-        return view('withdraw.create');
+    public function create() {
+        $investors = User::where('id', '!=', 1)->get();
+
+        return view('withdraw.create', compact('investors'));
     }
 
     public function store(Request $request)
     {
         return Withdraw::create([
             // 'user_id' => auth()->id(),
-            'user_id' => 2,
+            'user_id' => $request->input('user_id'),
             'date' => $request->input('date'),
             'nominal' => $request->input('nominal'),
             'status' => ''
