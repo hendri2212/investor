@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Withdraw;
 use Illuminate\Http\Request;
+use App\Models\Withdraw;
+use App\Models\Wallet;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 
@@ -14,17 +15,22 @@ class WithdrawController extends Controller
 
         $totalNominal = $withdrawls->sum('nominal');
 
-        $additionalData = [
-            [
-                'start_date' => '2024-10-24', 
-                'capital' => 500000, 
-                'yield' => $totalNominal,
-                'persentase' => 10
-            ]
-        ];
+        $wallets = Wallet::with('user')->get();
 
-        foreach ($additionalData as &$data) {
-            $data['persentase'] = ($data['yield'] / $data['capital']) * 100;
+        $additionalData = [];
+
+        foreach ($wallets as &$wallet) {
+            $data = [
+                'start_date' => $wallet->start_date,
+                'capital' => $wallet->capital,
+                'yield' => $totalNominal,
+                'persentase' => 0
+            ];
+
+            // Hitung persentase yield terhadap capital
+            if ($data['capital'] > 0) {
+                $data['persentase'] = ($data['yield'] / $data['capital']) * 100;
+            }
             
             $today = Carbon::now();
             $startDate = Carbon::parse($data['start_date']);
@@ -34,8 +40,10 @@ class WithdrawController extends Controller
             $businessDays = iterator_count($period->filter('isWeekday'));
 
             $data['business_days'] = $businessDays;
-            
             $data['formatted_start_date'] = $startDate->translatedFormat('d F Y');
+
+            // Tambahkan data yang telah diproses ke additionalData
+            $additionalData[] = $data;
         }
 
         return view('withdraw.index', compact('withdrawls', 'additionalData'));
